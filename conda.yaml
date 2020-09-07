@@ -7,7 +7,7 @@ dependencies:
   - python=3.8
   - pip
   - pip:
-    - mlflow=1.11.0
+    - mlflow==1.11.0
     - tensorflow==2.3.0
     - tensorflow-addons==0.11.2
     - albumentations==0.4.6
