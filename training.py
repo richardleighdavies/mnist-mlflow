@@ -48,7 +48,9 @@ def main():
 
     model = network.build(params)
 
-    with mlflow.start_run(run_name=params.run_name):
+    with mlflow.start_run():
+
+        mlflow.set_tag('mlflow.runName', params.run_name)
 
         try:
 

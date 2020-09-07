@@ -4,8 +4,11 @@ channels:
   - anaconda
   - conda-forge
 dependencies:
-  - python=3.6
+  - python=3.8
   - pip
   - pip:
-    - mlflow
-    - tensorflow==2.0.0
+    - mlflow=1.11.0
+    - tensorflow==2.3.0
+    - tensorflow-addons==0.11.2
+    - albumentations==0.4.6
+    - numpy==1.18.5

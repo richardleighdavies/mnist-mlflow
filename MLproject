@@ -4,5 +4,5 @@ conda_env: conda.yaml
 entry_points:
   main:
     parameters:
-      run_name: {type: string, default: "example"} 
+      run_name: string
     command: "python3.8 training.py {run_name}"
