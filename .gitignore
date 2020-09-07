@@ -1,0 +1,4 @@
+artifacts/*
+models/*
+mlruns
+__pycache__
