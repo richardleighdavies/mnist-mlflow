@@ -1,4 +1,4 @@
-name: MNIST
+name: mlflow-mnist
 conda_env: conda.yaml
 
 entry_points:
