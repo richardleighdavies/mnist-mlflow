@@ -18,28 +18,35 @@ parser.add_argument('run_name', type=str)
 
 parser.add_argument('--load_weights', type=str)
 
-parser.add_argument('--batch_size', type=int, default=16)
-parser.add_argument('--epochs', type=int, default=100)
-parser.add_argument('--batch_norm', action='store_false')
+parser.add_argument('--batch_size', type=int)
+parser.add_argument('--epochs', type=int)
 
-parser.add_argument('--learning_rate', type=float, default=0.01)
+parser.add_argument('--dropout', type=str)
+parser.add_argument('--dropout_rate', type=float)
 
-parser.add_argument('--cyclic_learning_rate', action='store_false')
+parser.add_argument('--learning_rate', type=float)
 
-parser.add_argument('--cyclic_learning_rate_min', type=float, default=0.00001)
-parser.add_argument('--cyclic_learning_rate_max', type=float, default=0.01)
-parser.add_argument('--cyclic_learning_rate_step', type=int, default=10)
+parser.add_argument('--cyclic_learning_rate', type=str)
 
-parser.add_argument('--augment', action='store_false')
+parser.add_argument('--cyclic_learning_rate_min', type=float)
+parser.add_argument('--cyclic_learning_rate_max', type=float)
+parser.add_argument('--cyclic_learning_rate_step', type=int)
 
-parser.add_argument('--translation', type=float, default=0.2)
-parser.add_argument('--scale', type=float, default=0.2)
-parser.add_argument('--rotation', type=float, default=30.0)
-parser.add_argument('--brightness', type=float, default=0.2)
+parser.add_argument('--augment', type=str)
 
-parser.add_argument('--model_summary', action='store_true')
+parser.add_argument('--translation', type=float)
+parser.add_argument('--scale', type=float)
+parser.add_argument('--rotation', type=float)
+parser.add_argument('--brightness', type=float)
+
+parser.add_argument('--model_summary', type=str)
 
 params = parser.parse_args()
+
+params.dropout = True if params.dropout == 'True' else False
+params.cyclic_learning_rate = True if params.cyclic_learning_rate == 'True' else False
+params.augment = True if params.augment == 'True' else False
+params.model_summary = True if params.model_summary == 'True' else False
 
 
 def main():

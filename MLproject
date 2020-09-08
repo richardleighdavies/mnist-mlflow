@@ -1,8 +1,38 @@
-name: mlflow-mnist
+name: mnist
 conda_env: conda.yaml
 
 entry_points:
   main:
     parameters:
       run_name: string
-    command: "python3.8 training.py {run_name}"
+      load_weights: {type: string, default: None}
+      batch_size: {type: float, default: 16}
+      epochs: {type: float, default: 100}
+      dropout: {type: string, default: False}
+      dropout_rate: {type: float, default: 0.2}
+      learning_rate: {type: float, default: 0.01}
+      cyclic_learning_rate: {type: string, default: True}
+      cyclic_learning_rate_min: {type: float, default: 0.0001}
+      cyclic_learning_rate_max: {type: float, default: 0.01}
+      cyclic_learning_rate_step: {type: float, default: 10}
+      augment: {type: string, default: True}
+      translation: {type: float, default: 0.2}
+      scale: {type: float, default: 0.2}
+      rotation: {type: float, default: 30.0}
+      brightness: {type: float, default: 0.2}
+      model_summary: {type: string, default: False}
+    command: "python3 training.py {run_name} \
+                --load_weights {load_weights} \
+                --batch_size {batch_size} \
+                --epochs {epochs} \
+                --learning_rate {learning_rate} \
+                --cyclic_learning_rate {cyclic_learning_rate} \
+                --cyclic_learning_rate_min {cyclic_learning_rate_min} \
+                --cyclic_learning_rate_max {cyclic_learning_rate_max} \
+                --cyclic_learning_rate_step {cyclic_learning_rate_step} \
+                --augment {augment} \
+                --translation {translation} \
+                --scale {scale} \
+                --rotation {rotation} \
+                --brightness {brightness} \
+                --model_summary {model_summary}"

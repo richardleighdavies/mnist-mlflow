@@ -12,3 +12,4 @@ dependencies:
     - tensorflow-addons==0.11.2
     - albumentations==0.4.6
     - numpy==1.18.5
+    - boto3==1.14.56

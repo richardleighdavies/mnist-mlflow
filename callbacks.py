@@ -22,6 +22,10 @@ class MLFlowCallback(Callback):
 
         self.log_model_architecture()
 
+    def on_train_end(self, logs=None):
+
+        self.log_model()
+
     def on_epoch_end(self, epoch, logs=None):
 
         for key, value in logs.items():
@@ -50,6 +54,10 @@ class MLFlowCallback(Callback):
             file.write(json_string)
 
         mlflow.log_artifact('./artifacts/model_architecture.json')
+
+    def log_model(self):
+
+        mlflow.log_artifact('./models/model.h5')
 
 
 def get(params):
