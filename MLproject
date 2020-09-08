@@ -14,7 +14,7 @@ entry_points:
       cyclic_learning_rate: {type: string, default: True}
       cyclic_learning_rate_min: {type: float, default: 0.0001}
       cyclic_learning_rate_max: {type: float, default: 0.01}
-      cyclic_learning_rate_step: {type: float, default: 10}
+      cyclic_learning_rate_step: {type: float, default: 5}
       augment: {type: string, default: True}
       translation: {type: float, default: 0.2}
       scale: {type: float, default: 0.2}
