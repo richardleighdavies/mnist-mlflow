@@ -25,6 +25,8 @@ entry_points:
                 --load_weights {load_weights} \
                 --batch_size {batch_size} \
                 --epochs {epochs} \
+                --dropout {dropout} \
+                --dropout_rate {dropout_rate} \
                 --learning_rate {learning_rate} \
                 --cyclic_learning_rate {cyclic_learning_rate} \
                 --cyclic_learning_rate_min {cyclic_learning_rate_min} \
