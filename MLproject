@@ -20,6 +20,9 @@ entry_points:
       scale: {type: float, default: 0.2}
       rotation: {type: float, default: 30.0}
       brightness: {type: float, default: 0.2}
+      model_checkpoint_monitor: {type: string, default: val_micro_f1_score}
+      model_checkpoint_verbose: {type: float, default: 1}
+      model_checkpoint_mode: {type: string, default: max}
       model_summary: {type: string, default: False}
     command: "python3 training.py {run_name} \
                 --load_weights {load_weights} \
@@ -37,4 +40,7 @@ entry_points:
                 --scale {scale} \
                 --rotation {rotation} \
                 --brightness {brightness} \
+                --model_checkpoint_monitor {mode_checkpoint_monitor} \
+                --model_checkpoint_verbose {mode_checkpoint_verbose} \
+                --model_checkpoint_mode {mode_checkpoint_mode} \
                 --model_summary {model_summary}"

@@ -21,32 +21,37 @@ parser.add_argument('--load_weights', type=str)
 parser.add_argument('--batch_size', type=int)
 parser.add_argument('--epochs', type=int)
 
-parser.add_argument('--dropout', type=str)
+parser.add_argument('--dropout', type=str, choice=['True', 'False'])
 parser.add_argument('--dropout_rate', type=float)
 
 parser.add_argument('--learning_rate', type=float)
 
-parser.add_argument('--cyclic_learning_rate', type=str)
+parser.add_argument('--cyclic_learning_rate', type=str, choice=['True', 'False'])
 
 parser.add_argument('--cyclic_learning_rate_min', type=float)
 parser.add_argument('--cyclic_learning_rate_max', type=float)
 parser.add_argument('--cyclic_learning_rate_step', type=int)
 
-parser.add_argument('--augment', type=str)
+parser.add_argument('--augment', type=str, choice=['True', 'False'])
 
 parser.add_argument('--translation', type=float)
 parser.add_argument('--scale', type=float)
 parser.add_argument('--rotation', type=float)
 parser.add_argument('--brightness', type=float)
 
-parser.add_argument('--model_summary', type=str)
+parser.add_argument('--model_checkpoint_monitor', type=str)
+parser.add_argument('--model_checkpoint_verbose', type=int, choice=[0, 1, 2])
+parser.add_argument('--model_checkpoint_mode', type=str, choice=['min', 'max'])
+
+parser.add_argument('--model_summary', type=str, choice=['True', 'False'])
 
 params = parser.parse_args()
 
-params.dropout = True if params.dropout == 'True' else False
-params.cyclic_learning_rate = True if params.cyclic_learning_rate == 'True' else False
-params.augment = True if params.augment == 'True' else False
-params.model_summary = True if params.model_summary == 'True' else False
+params.dropout = eval(params.dropout)
+params.cyclic_learning_rate = eval(params.cyclic_learning_rate)
+params.augment = eval(params.augment)
+params.model_checkpoint_save_best_only = eval(params.model_checkpoint_save_best_only)
+params.model_summary = eval(params.model_summary)
 
 
 def main():
