@@ -2,8 +2,12 @@
 
 import json
 
+import numpy as np
+
+import tensorflow as tf
+
 from tensorflow.keras import backend as K
-from tensorflow.keras.callbacks import Callback, EarlyStopping, ModelCheckpoint
+from tensorflow.keras.callbacks import Callback
 
 import mlflow
 
@@ -16,7 +20,7 @@ class MLFlowCallback(Callback):
 
         self.parameters = params
 
-        if params.model_checkpoint_mode == 'min':
+        if self.parameters.model_checkpoint_mode == 'min':
             self.model_checkpoint_best_value = float('inf')
         else:
             self.model_checkpoint_best_value = float('-inf')
@@ -45,6 +49,10 @@ class MLFlowCallback(Callback):
     def log_parameters(self):
 
         for key, value in vars(self.parameters).items():
+
+            if key == 'run_name':
+                continue
+
             mlflow.log_param(key=key, value=value)
 
     def log_model_architecture(self):
@@ -60,19 +68,17 @@ class MLFlowCallback(Callback):
 
     def model_checkpoint_check(self, epoch, logs=None):
 
-        current_value = logs[self.params.model_checkpoint_monitor]
+        current_value = logs[self.parameters.model_checkpoint_monitor]
 
-        if self.model_checkpoint_mode == 'min':
+        if self.parameters.model_checkpoint_mode == 'min':
             if current_value < self.model_checkpoint_best_value:
                 self.log_model()
 
-        if self.model_checkpoint_mode == 'max':
+        if self.parameters.model_checkpoint_mode == 'max':
             if current_value > self.model_checkpoint_best_value:
                 self.log_model()
 
     def log_model(self):
-
-        input_example = np.zeros((28, 28, 1), np.uint8)
 
         mlflow.keras.log_model(
             keras_model=self.model,
@@ -80,32 +86,22 @@ class MLFlowCallback(Callback):
             conda_env='./conda.yaml',
             custom_objects=None,
             keras_module=tf.keras,
-            input_example=input_example,
-
         )
 
-        self.print_model_checkpoint_message()
+        # self.model_checkpoint_message()
 
     def model_checkpoint_message(self):
 
-        if self.params.model_checkpoint_verbose == 1:
+        if self.parameters.model_checkpoint_verbose == 1:
             print(f'')
 
-        elif self.params.model_checkpoint_verbose == 2:
+        elif self.parameters.model_checkpoint_verbose == 2:
             print(f'')
 
 
 def get(params):
 
     callbacks = [
-        ModelCheckpoint(
-            filepath='./models/model.h5',
-            monitor='val_micro_f1_score',
-            verbose=1,
-            save_best_only=True,
-            save_weights_only=True,
-            mode='max',
-        ),
         MLFlowCallback(params),
     ]
 
