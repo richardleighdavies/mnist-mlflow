@@ -7,8 +7,9 @@ import warnings
 warnings.simplefilter('ignore')
 
 import callbacks
+import datasets
 import generators
-import network
+import networks
 
 from argparse import ArgumentParser
 
@@ -55,7 +56,11 @@ params.model_summary = eval(params.model_summary)
 
 def main():
 
-    training_generator, validation_generator = generators.create(params)
+    (x_train, y_train), (x_val, y_val) = datasets.load_mnist(params)
+
+    training_generator = generators.create(params, x_train, y_train, params.training_instances, augment=params.augment)
+
+    validation_generator = generators.create(params, x_val, y_val, params.validation_instances)
 
     model = network.build(params)
 
